@@ -1,0 +1,234 @@
+/* =============================================
+   LearnHub — AI Assistant Styles
+   assistant.css
+============================================= */
+
+/* Chat Container */
+.chat-module-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--bg-primary);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+/* Chat Header */
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+}
+
+.chat-header-info { display: flex; align-items: center; gap: 10px; }
+.chat-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--gradient-hero);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1rem;
+}
+.chat-header-title { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+.chat-header-subtitle { font-size: 0.75rem; color: var(--text-muted); }
+.online-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-right: 4px; }
+.chat-header-actions { display: flex; gap: 8px; }
+.chat-icon-btn {
+    background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-secondary); width: 32px; height: 32px;
+    border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.chat-icon-btn:hover { background: var(--bg-primary); color: var(--accent-primary); border-color: var(--accent-primary); }
+
+/* Messages Area */
+.chat-messages-container {
+    flex: 1; min-height: 0;
+    padding: 20px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 16px;
+    background: var(--bg-primary);
+}
+
+/* Message Bubbles */
+.message-bubble {
+    display: flex; gap: 10px; align-items: flex-start;
+    animation: fadeSlideUp 0.25s ease;
+}
+.user-message { flex-direction: row-reverse; }
+.message-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--bg-tertiary); border: 1px solid var(--border-color);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); flex-shrink: 0;
+}
+.user-message .message-avatar { background: var(--gradient-hero); color: white; border-color: transparent; }
+.message-wrapper { display: flex; flex-direction: column; gap: 4px; max-width: 78%; }
+.user-message .message-wrapper { align-items: flex-end; }
+
+.message-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 4px 14px 14px 14px;
+    font-size: 0.9rem; line-height: 1.65;
+    color: var(--text-primary);
+}
+.user-message .message-content {
+    background: var(--gradient-hero); color: white;
+    border-color: transparent; border-radius: 14px 4px 14px 14px;
+}
+.message-content p { margin-bottom: 8px; }
+.message-content p:last-child { margin-bottom: 0; }
+.message-content strong { font-weight: 700; }
+.message-content ul, .message-content ol { margin-left: 18px; margin-bottom: 8px; }
+.message-content code { background: rgba(0,0,0,0.15); padding: 1px 5px; border-radius: 4px; font-family: monospace; font-size: 0.82rem; }
+.message-content pre { background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; overflow-x: auto; margin: 8px 0; }
+.message-content pre code { background: none; padding: 0; font-size: 0.8rem; }
+.message-content img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; display: block; }
+.message-time { font-size: 0.68rem; color: var(--text-muted); }
+
+/* Typing Indicator */
+.typing-indicator { display: flex; gap: 5px; align-items: center; padding: 10px 14px !important; }
+.typing-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--text-muted); animation: bounce 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+
+/* Suggestion Chips */
+.suggestion-chips { padding: 12px 20px; display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--border-color); background: var(--bg-secondary); flex-shrink: 0; }
+.suggestion-chip-btn {
+    background: var(--bg-primary); border: 1px solid var(--border-color);
+    color: var(--text-secondary); padding: 6px 14px; border-radius: 20px;
+    font-size: 0.78rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.suggestion-chip-btn:hover { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(99,102,241,0.08); }
+
+/* Chat Input */
+.chat-input-wrapper {
+    padding: 14px 20px; border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary); border-radius: 0 0 16px 16px; flex-shrink: 0;
+}
+.chat-input-form { display: flex; gap: 10px; align-items: center; }
+.chat-text-input {
+    flex: 1; background: var(--bg-primary); border: 1px solid var(--border-color);
+    color: var(--text-primary); padding: 11px 16px; border-radius: 12px;
+    font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+}
+.chat-text-input:focus { border-color: var(--accent-primary); }
+.chat-send-btn {
+    background: var(--gradient-hero); color: white; border: none;
+    width: 42px; height: 42px; border-radius: 12px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: opacity 0.2s, transform 0.2s;
+}
+.chat-send-btn:hover { opacity: 0.85; transform: scale(1.05); }
+
+/* Fade-in animation */
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── Structured AI Response Sections ─────────────────────────── */
+
+/* Section headings like 📖 Definition:, 💡 Concept:, etc. */
+.ai-message .message-content h1,
+.ai-message .message-content h2,
+.ai-message .message-content h3 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 16px 0 6px;
+    padding: 0;
+    color: var(--accent-primary);
+    letter-spacing: 0.01em;
+}
+.ai-message .message-content h1:first-child,
+.ai-message .message-content h2:first-child,
+.ai-message .message-content h3:first-child {
+    margin-top: 4px;
+}
+
+/* Bold section labels rendered as <strong> inside <p> */
+.ai-message .message-content p > strong:first-child {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-primary);
+    margin-bottom: 4px;
+    margin-top: 14px;
+    opacity: 0.9;
+}
+.ai-message .message-content p:first-child > strong:first-child {
+    margin-top: 0;
+}
+
+/* KaTeX display math — formula block */
+.ai-message .message-content .katex-display {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    overflow-x: auto;
+    text-align: center;
+}
+
+/* KaTeX inline math */
+.ai-message .message-content .katex:not(.katex-display .katex) {
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 1em;
+}
+
+/* Variable explanations after formula */
+.ai-message .message-content p {
+    margin-bottom: 6px;
+    line-height: 1.7;
+}
+.ai-message .message-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Horizontal rule between sections */
+.ai-message .message-content hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 12px 0;
+    opacity: 0.5;
+}
+
+/* List styling */
+.ai-message .message-content ul,
+.ai-message .message-content ol {
+    margin: 6px 0 6px 18px;
+    line-height: 1.7;
+}
+.ai-message .message-content li {
+    margin-bottom: 3px;
+}
+
+/* Code blocks */
+.ai-message .message-content code {
+    background: rgba(0,0,0,0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.82rem;
+}
+.ai-message .message-content pre {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
