@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LearnHub — Your Academic Learning Platform | learnhubdhruvil.com</title>
+    <meta name="description" content="Free academic notes, Q&A, and an AI tutor for CBSE & Maharashtra Board students — learnhubdhruvil.com" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <!-- mhchem extension: enables \ce{} for chemical equations -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/mhchem.min.js"></script>
+
+    <!-- Marked.js for Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ai/assistant.css" />
+
+    <style>
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed; top: 0; left: -280px; height: 100%; width: 260px;
+            background: var(--bg-secondary); border-right: 1px solid var(--border-color);
+            z-index: 1000; padding: 24px 20px; transition: left 0.3s ease;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .mobile-drawer.open { left: 0; }
+        .drawer-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            z-index: 999; backdrop-filter: blur(2px);
+        }
+        .drawer-overlay.open { display: block; }
+        .mobile-nav-link {
+            display: block; padding: 10px 14px; border-radius: 10px;
+            color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+        }
+        .mobile-nav-link:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+        .mobile-nav-link.active { background: rgba(99,102,241,0.12); color: var(--accent-primary); }
+        .drawer-brand { font-size: 1rem; font-weight: 800; margin-bottom: 14px; color: var(--text-primary); }
+        .drawer-brand span { color: var(--accent-primary); }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Mobile Drawer -->
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+    <nav id="mobile-drawer" class="mobile-drawer">
+        <div class="drawer-brand">Learn<span>Hub</span></div>
+        <a href="#/home"  class="mobile-nav-link">🏠 Home</a>
+        <a href="#/notes" class="mobile-nav-link">📚 Notes</a>
+        <a href="#/ai"    class="mobile-nav-link">👽 AI Tutor</a>
+        <a href="#/about" class="mobile-nav-link">ℹ️ About</a>
+    </nav>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="#/home" class="nav-brand">
+            <div class="nav-logo">LH</div>
+            <span class="nav-brand-name">Learn<span>Hub</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="#/home"  class="nav-link">Home</a>
+            <a href="#/notes" class="nav-link">📚 Notes</a>
+            <a href="#/ai"    class="nav-link">🤖 AI Tutor</a>
+            <a href="#/about" class="nav-link">About</a>
+        </nav>
+        <div class="nav-actions">
+            <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+            </button>
+            <button id="mobile-toggle" class="icon-btn mobile-toggle" title="Menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════
+         HOME SECTION
+    ════════════════════════════════ -->
+    <section id="home-section" class="app-section">
+        <div class="hero-section">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Free Academic Resources for Indian Students
+                </div>
+                <h1 class="hero-title">
+                    Study Smarter with<br>
+                    <span class="gradient-text">LearnHub</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Access free notes, Q&amp;A practice sets, and an AI tutor — all in one place.
+                    Made for CBSE &amp; Maharashtra Board students.
+                </p>
+                <div class="hero-cta">
+                    <a href="#/notes" class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        Browse Notes
+                    </a>
+                    <a href="#/ai" class="btn-outline">
+                        👽 Ask AI Tutor
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item"><div class="stat-number">2</div><div class="stat-label">Boards Covered</div></div>
+                    <div class="stat-item"><div class="stat-number">4</div><div class="stat-label">Classes</div></div>
+                    <div class="stat-item"><div class="stat-number">∞</div><div class="stat-label">AI Questions</div></div>
+                    <div class="stat-item"><div class="stat-number">Free</div><div class="stat-label">Always</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         NOTES / BROWSER SECTION
+    ════════════════════════════════ -->
+    <section id="notes-section" class="app-section">
+        <div class="content-section">
+            <div id="notes-browser"></div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         AI TUTOR SECTION
+    ════════════════════════════════ -->
+    <section id="ai-section" class="app-section">
+        <div class="ai-section-wrapper">
+            <div class="ai-section-header">
+                <div class="section-tag">👽 AI Powered</div>
+                <h2 class="section-title" style="font-size:1.8rem;">AI Doubt Solver</h2>
+                <p class="section-subtitle" style="font-size:0.88rem;">Ask any academic question — get clear definitions, concepts, real-life examples &amp; formulas instantly.</p>
+            </div>
+
+            <div class="ai-chat-frame chat-module-container">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <div class="chat-avatar">👽</div>
+                        <div>
+                            <div class="chat-header-title">LearnHub AI Tutor</div>
+                            <div class="chat-header-subtitle"><span class="online-dot"></span>Online — ready to help</div>
+                        </div>
+                    </div>
+                    <div class="chat-header-actions">
+                        <button id="chat-api-btn" class="chat-icon-btn" title="Set Gemini API Key">
+                            🔑
+                        </button>
+                        <button id="chat-clear-btn" class="chat-icon-btn" title="Clear Chat">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="chat-messages-container" id="chat-message-log"></div>
+
+                <!-- Suggestion Chips -->
+                <div class="suggestion-chips">
+                    <button class="suggestion-chip-btn" data-prompt="What is Newton's Second Law?">Newton's 2nd Law</button>
+                    <button class="suggestion-chip-btn" data-prompt="Explain Photosynthesis">Photosynthesis</button>
+                    <button class="suggestion-chip-btn" data-prompt="What is Ohm's Law?">Ohm's Law</button>
+                    <button class="suggestion-chip-btn" data-prompt="Explain the Pythagoras Theorem">Pythagoras</button>
+                </div>
+
+                <!-- Input -->
+                <div class="chat-input-wrapper">
+                    <form class="chat-input-form" id="chat-submit-form">
+                        <input
+                            type="text" id="chat-user-input"
+                            class="chat-text-input" placeholder="Ask any academic question..."
+                            autocomplete="off" />
+                        <button type="submit" class="chat-send-btn" title="Send">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         ABOUT SECTION
+    ════════════════════════════════ -->
+    <section id="about-section" class="app-section">
+        <div class="content-section" style="max-width:700px; text-align:center;">
+            <div class="section-tag">ℹ️ About</div>
+            <h2 class="section-title">About LearnHub</h2>
+            <p class="section-subtitle" style="margin-top:16px; font-size:0.97rem; max-width:100%;">
+                LearnHub is a free academic platform created by <strong>Dhruvil Sankhe</strong> to help Indian students
+                access high-quality notes and practice Q&amp;A for CBSE and Maharashtra Board — completely free.
+                The built-in AI Tutor can explain any concept using simple definitions, real-life examples, and formulas.
+            </p>
+            <div style="margin-top:32px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+                <a href="#/notes" class="btn-primary">📚 Browse Notes</a>
+                <a href="#/ai" class="btn-outline">👽 Try AI Tutor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         TEXT VIEWER MODAL
+    ════════════════════════════════ -->
+    <div id="viewer-modal" class="viewer-modal">
+        <div class="viewer-box">
+            <div class="viewer-header">
+                <span id="viewer-title" class="viewer-title">Chapter</span>
+                <button id="viewer-close" class="viewer-close">✕</button>
+            </div>
+            <div id="viewer-content" class="viewer-content"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Built with ❤️ by <strong>Dhruvil Sankhe</strong> · <a href="#/home">LearnHub</a> · <a href="https://learnhubdhruvil.com" target="_blank">learnhubdhruvil.com</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="ai/assistant.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
